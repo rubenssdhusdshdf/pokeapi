@@ -1,24 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { pokemonsReducer } from './reducers/pokemons';
 import { Provider } from 'react-redux';
 import {
   applyMiddleware,
   compose,
   legacy_createStore as createStore,
 } from 'redux';
-import thunk from 'redux-thunk'; //Importacion de redux think 
-import { logger } from '../src/middleware';
+import thunk from 'redux-thunk';
+import { logger } from '../src/middleware/index';
 import './index.css';
+import rootReducer from './reducers/rootReducer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const composeAlt = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const composedEnhancers = composeAlt(applyMiddleware(thunk, logger)); //Vamos a tener dos middleware thunk y logger
+const composedEnhancers = composeAlt(applyMiddleware(thunk, logger));
 
-const store = createStore(pokemonsReducer, composedEnhancers);
+const store = createStore(rootReducer, composedEnhancers);
 
 root.render(
   <React.StrictMode>
